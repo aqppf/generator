@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>com.item.project</groupId>
-    <artifactId>gen</artifactId>
+    <artifactId>generator</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>test Maven Webapp</name>
