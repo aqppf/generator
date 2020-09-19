@@ -1,6 +1,8 @@
 package com.item.gen.model;
 
-public class Admin {
+import java.io.Serializable;
+
+public class Admin implements Serializable {
     private Integer id;
 
     private String loginName;
@@ -12,6 +14,8 @@ public class Admin {
     private String salt;
 
     private Integer roleId;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
