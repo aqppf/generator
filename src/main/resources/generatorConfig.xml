@@ -11,10 +11,12 @@
 		<property name="javaFileEncoding" value="UTF-8"/>
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
 		<plugin type="com.item.gen.plugins.CustomPlugin"></plugin>
+		<!--覆盖生成XML文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
 		
-		<commentGenerator>
+		<commentGenerator type="com.item.gen.generator.MyCommentGenerator">
 			<property name="suppressDate" value="false"/>
-			<property name="suppressAllComments" value="true"/>
+			<!-- <property name="suppressAllComments" value="true"/> -->
 		</commentGenerator>
 		
 		<!-- mysql数据库连接 -->
