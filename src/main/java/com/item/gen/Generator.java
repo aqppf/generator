@@ -22,7 +22,7 @@ public class Generator {
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
         
-		System.out.println("ok");
+		System.out.println("ok done");
 	}
 
 }
