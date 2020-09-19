@@ -24,14 +24,13 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		for(IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
 			XmlElement selectNotNullElement = new XmlElement("if"); //$NON-NLS-1$
 			sb.setLength(0);
-			sb.append("null != ");
 			sb.append(introspectedColumn.getJavaProperty());
+			sb.append(" != null ");
 			selectNotNullElement.addAttribute(new Attribute("test", sb.toString()));
 			sb.setLength(0);
 			// 添加and
 			sb.append(" and ");
-			// 添加别名t
-			sb.append("t.");
+			// 添加
 			sb.append(MyBatis3FormattingUtilities.getEscapedColumnName(introspectedColumn));
 			// 添加等号
 			sb.append(" = ");

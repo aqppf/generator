@@ -13,7 +13,7 @@ public class Generator {
 	
 	public static void main(String[] args) throws Exception {
 		
-		File configFile = new File("D:\\workspace\\generator\\src\\main\\resources\\generatorConfig.xml");
+		File configFile = new File("src/main/resources/generatorConfig.xml");
 		List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
         ConfigurationParser cp = new ConfigurationParser(warnings);
