@@ -11,7 +11,7 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 
 	@Override
 	public void addElements(XmlElement parentElement) {
-		
+				
 		// 增加base_query
 		XmlElement sql = new XmlElement("sql");
 		sql.addAttribute(new Attribute("id", "base_query"));
