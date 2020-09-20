@@ -1,7 +1,11 @@
 package com.item.gen.plugins;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.dom.xml.Attribute;
+import org.mybatis.generator.api.dom.xml.Element;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
@@ -11,9 +15,21 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 
 	public void addElements(XmlElement parentElement) {
 		
-		TextElement space = new TextElement("<!-- ******************** -->");
+		TextElement space = new TextElement("\r\n");
 		
-		parentElement.addElement(space);
+		List<Element> list = new ArrayList<>();
+		
+		for (Element ele : parentElement.getElements() ) {
+			
+			Element curE = new TextElement("\r\n" + ele.getFormattedContent(1) );
+			
+			list.add(curE);
+			
+		}
+		
+		// 格式化默认的xml文件
+		parentElement.getElements().clear();
+		parentElement.getElements().addAll(list);
 				
 		// 增加base_query
 		XmlElement sql = new XmlElement("sql");
@@ -47,6 +63,8 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
             selectTrimElement.addElement(selectNotNullElement);
 		}
 		sql.addElement(selectTrimElement);
+		
+		parentElement.addElement(space);
 		parentElement.addElement(sql);
 		
 		// 公用include
@@ -63,8 +81,6 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
 		TextElement selectText = new TextElement(sb.toString());
 		
-		parentElement.addElement(space);
-		
 		// 增加selectByCondition
 		XmlElement find = new XmlElement("select");
 		find.addAttribute(new Attribute("id", "selectByCondition"));
@@ -74,6 +90,8 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		find.addElement(baseColumn);
 		find.addElement(selectText);
 		find.addElement(include);
+		
+		parentElement.addElement(space);
 		parentElement.addElement(find);
 		
 	}
