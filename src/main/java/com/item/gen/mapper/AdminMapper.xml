@@ -42,16 +42,16 @@
         <if test="id != null">
           id,
         </if>
-        <if test="loginName != null">
+        <if test="loginName != null and loginName != ''">
           login_name,
         </if>
-        <if test="nickName != null">
+        <if test="nickName != null and nickName != ''">
           nick_name,
         </if>
-        <if test="password != null">
+        <if test="password != null and password != ''">
           password,
         </if>
-        <if test="salt != null">
+        <if test="salt != null and salt != ''">
           salt,
         </if>
         <if test="roleId != null">
@@ -62,16 +62,16 @@
         <if test="id != null">
           #{id,jdbcType=BIGINT},
         </if>
-        <if test="loginName != null">
+        <if test="loginName != null and loginName != ''">
           #{loginName,jdbcType=VARCHAR},
         </if>
-        <if test="nickName != null">
+        <if test="nickName != null and nickName != ''">
           #{nickName,jdbcType=VARCHAR},
         </if>
-        <if test="password != null">
+        <if test="password != null and password != ''">
           #{password,jdbcType=VARCHAR},
         </if>
-        <if test="salt != null">
+        <if test="salt != null and salt != ''">
           #{salt,jdbcType=VARCHAR},
         </if>
         <if test="roleId != null">
@@ -83,16 +83,16 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.item.gen.model.Admin">
       update admin
       <set>
-        <if test="loginName != null">
+        <if test="loginName != null and loginName != ''">
           login_name = #{loginName,jdbcType=VARCHAR},
         </if>
-        <if test="nickName != null">
+        <if test="nickName != null and nickName != ''">
           nick_name = #{nickName,jdbcType=VARCHAR},
         </if>
-        <if test="password != null">
+        <if test="password != null and password != ''">
           password = #{password,jdbcType=VARCHAR},
         </if>
-        <if test="salt != null">
+        <if test="salt != null and salt != ''">
           salt = #{salt,jdbcType=VARCHAR},
         </if>
         <if test="roleId != null">
