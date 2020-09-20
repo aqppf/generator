@@ -15,22 +15,6 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 
 	public void addElements(XmlElement parentElement) {
 		
-		TextElement space = new TextElement("\r\n");
-		
-		List<Element> list = new ArrayList<>();
-		
-		for (Element ele : parentElement.getElements() ) {
-			
-			Element curE = new TextElement("\r\n" + ele.getFormattedContent(1) );
-			
-			list.add(curE);
-			
-		}
-		
-		// 格式化默认的xml文件
-		parentElement.getElements().clear();
-		parentElement.getElements().addAll(list);
-				
 		// 增加base_query
 		XmlElement sql = new XmlElement("sql");
 		sql.addAttribute(new Attribute("id", "base_query"));
@@ -64,7 +48,6 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		}
 		sql.addElement(selectTrimElement);
 		
-		parentElement.addElement(space);
 		parentElement.addElement(sql);
 		
 		// 公用include
@@ -91,8 +74,17 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		find.addElement(selectText);
 		find.addElement(include);
 		
-		parentElement.addElement(space);
 		parentElement.addElement(find);
+		
+		// 格式化默认的xml文件
+		List<Element> list = new ArrayList<>();
+		
+		for (Element ele : parentElement.getElements() ) {
+			Element curE = new TextElement("\r\n" + ele.getFormattedContent(2) );
+			list.add(curE);
+		}
+		parentElement.getElements().clear();
+		parentElement.getElements().addAll(list);
 		
 	}
 
