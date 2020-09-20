@@ -176,7 +176,14 @@ public class MyCommentGenerator implements CommentGenerator {
         field.addJavaDocLine(" */");
     }
 
+    /***
+     * Mapper 方法注释
+     */
     public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
+    	
+    	if (!suppressAllComments || suppressAllComments) {
+            return;
+        }
     	
     	StringBuilder sb = new StringBuilder();
     	method.addJavaDocLine("/***");

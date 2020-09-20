@@ -103,21 +103,22 @@
       role_id = #{roleId,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <!-- ******************** -->
   <sql id="base_query">
     <trim prefix="WHERE" prefixOverrides="AND | OR">
       <if test="id != null ">
          and id = #{id,jdbcType=BIGINT}
       </if>
-      <if test="loginName != null ">
+      <if test="loginName != null and loginName != ''">
          and login_name = #{loginName,jdbcType=VARCHAR}
       </if>
-      <if test="nickName != null ">
+      <if test="nickName != null and nickName != ''">
          and nick_name = #{nickName,jdbcType=VARCHAR}
       </if>
-      <if test="password != null ">
+      <if test="password != null and password != ''">
          and password = #{password,jdbcType=VARCHAR}
       </if>
-      <if test="salt != null ">
+      <if test="salt != null and salt != ''">
          and salt = #{salt,jdbcType=VARCHAR}
       </if>
       <if test="roleId != null ">
@@ -125,16 +126,11 @@
       </if>
     </trim>
   </sql>
-  <select id="find" parameterType="com.item.gen.model.Admin" resultMap="BaseResultMap">
-    select t.* from admin t
-    <include refid="base_query" />
-  </select>
-  <select id="list" parameterType="com.item.gen.model.Admin" resultMap="BaseResultMap">
-    select t.* from admin t
-    <include refid="base_query" />
-  </select>
-  <select id="pageList" parameterType="com.item.gen.model.Admin" resultMap="BaseResultMap">
-    select t.* from admin t
+  <!-- ******************** -->
+  <select id="selectByCondition" parameterType="com.item.gen.model.Admin" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
     <include refid="base_query" />
   </select>
 </mapper>

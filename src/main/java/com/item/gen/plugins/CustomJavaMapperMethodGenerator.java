@@ -15,35 +15,33 @@ public class CustomJavaMapperMethodGenerator extends AbstractJavaMapperMethodGen
 	@Override
 	public void addInterfaceElements(Interface interfaze) {
 		
-		addInterfaceFind(interfaze);
-		addInterfaceList(interfaze);
-		addInterfacePageList(interfaze);
-		addInterfaceTest2(interfaze);
+		addInterfaceSelectByCondition(interfaze);
 	}
 	
-	private void addInterfaceTest2(Interface interfaze) {
+	private void addInterfaceSelectByCondition(Interface interfaze) {
 		
 		// 先创建import对象
 		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
 		// 添加Lsit的包
-		//importedTypes.add(FullyQualifiedJavaType.get);
+		importedTypes.add(FullyQualifiedJavaType.getNewListInstance());
 		
 		// 创建方法对象
 		Method method = new Method();
 		
 		method.setVisibility(JavaVisibility.PUBLIC);
 		
-		FullyQualifiedJavaType returnType = new FullyQualifiedJavaType("Integer");
+		FullyQualifiedJavaType returnType = FullyQualifiedJavaType.getNewListInstance();
+		returnType.addTypeArgument(new FullyQualifiedJavaType(introspectedTable.getBaseRecordType()));
 		method.setReturnType(returnType);
 		
-		method.setName("test2");
+		method.setName("selectByCondition");
 		
 		// 设置参数类型是对象
 		FullyQualifiedJavaType parameterType;
 		parameterType = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
 		
 		// 为方法添加参数，变量名称record
-		method.addParameter(new Parameter(parameterType, "where"));
+		method.addParameter(new Parameter(parameterType, "condition"));
 		
 		addMapperAnnotations(interfaze, method);
 		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
@@ -53,6 +51,7 @@ public class CustomJavaMapperMethodGenerator extends AbstractJavaMapperMethodGen
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void addInterfaceFind(Interface interfaze) {
 		// 先创建import对象
 		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
@@ -85,6 +84,7 @@ public class CustomJavaMapperMethodGenerator extends AbstractJavaMapperMethodGen
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void addInterfaceList(Interface interfaze) {
 		// 先创建import对象
 		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
@@ -123,6 +123,7 @@ public class CustomJavaMapperMethodGenerator extends AbstractJavaMapperMethodGen
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void addInterfacePageList(Interface interfaze) {
 		// 先创建import对象
 		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();

@@ -9,8 +9,11 @@ import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.AbstractXmlElem
 
 public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerator {
 
-	@Override
 	public void addElements(XmlElement parentElement) {
+		
+		TextElement space = new TextElement("<!-- ******************** -->");
+		
+		parentElement.addElement(space);
 				
 		// 增加base_query
 		XmlElement sql = new XmlElement("sql");
@@ -26,6 +29,11 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 			sb.setLength(0);
 			sb.append(introspectedColumn.getJavaProperty());
 			sb.append(" != null ");
+			if (introspectedColumn.isStringColumn()) {
+				sb.append("and ");
+				sb.append(introspectedColumn.getJavaProperty());
+				sb.append(" != ''");
+			}
 			selectNotNullElement.addAttribute(new Attribute("test", sb.toString()));
 			sb.setLength(0);
 			// 添加and
@@ -41,45 +49,33 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		sql.addElement(selectTrimElement);
 		parentElement.addElement(sql);
 		
-		// 公用select
-		sb.setLength(0);
-		sb.append("select ");
-		sb.append("t.* ");
-		sb.append("from ");
-		sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
-		sb.append(" t");
-		TextElement selectText = new TextElement(sb.toString());
-		
 		// 公用include
 		XmlElement include = new XmlElement("include");
 		include.addAttribute(new Attribute("refid", "base_query"));
 		
-		// 增加find
+		// 公用include 所有的列Base_Column
+		XmlElement baseColumn = new XmlElement("include");
+		baseColumn.addAttribute(new Attribute("refid", "Base_Column_List"));
+		
+		// 公用select
+		sb.setLength(0);		
+		sb.append("from ");
+		sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
+		TextElement selectText = new TextElement(sb.toString());
+		
+		parentElement.addElement(space);
+		
+		// 增加selectByCondition
 		XmlElement find = new XmlElement("select");
-		find.addAttribute(new Attribute("id", "find"));
+		find.addAttribute(new Attribute("id", "selectByCondition"));
 		find.addAttribute(new Attribute("resultMap", "BaseResultMap"));
 		find.addAttribute(new Attribute("parameterType", introspectedTable.getBaseRecordType()));
+		find.addElement(new TextElement("select "));
+		find.addElement(baseColumn);
 		find.addElement(selectText);
 		find.addElement(include);
 		parentElement.addElement(find);
 		
-		// 增加list
-		XmlElement list = new XmlElement("select");
-		list.addAttribute(new Attribute("id", "list"));
-		list.addAttribute(new Attribute("resultMap", "BaseResultMap"));
-		list.addAttribute(new Attribute("parameterType", introspectedTable.getBaseRecordType()));
-		list.addElement(selectText);
-		list.addElement(include);
-		parentElement.addElement(list);
-		
-		// 增加pageList
-		XmlElement pageList = new XmlElement("select");
-		pageList.addAttribute(new Attribute("id", "pageList"));
-		pageList.addAttribute(new Attribute("resultMap", "BaseResultMap"));
-		pageList.addAttribute(new Attribute("parameterType", introspectedTable.getBaseRecordType()));
-		pageList.addElement(selectText);
-		pageList.addElement(include);
-		parentElement.addElement(pageList);
 	}
 
 }
