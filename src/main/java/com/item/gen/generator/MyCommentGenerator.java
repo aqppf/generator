@@ -40,7 +40,7 @@ public class MyCommentGenerator implements CommentGenerator {
         systemPro = System.getProperties();
         suppressDate = false;
         suppressAllComments = false;
-        nowTime = (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(new Date());
+        nowTime = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     }
 
     public void addJavaFileComment(CompilationUnit compilationUnit) {

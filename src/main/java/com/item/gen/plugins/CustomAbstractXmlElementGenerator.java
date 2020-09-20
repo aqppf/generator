@@ -16,8 +16,8 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 	public void addElements(XmlElement parentElement) {
 		
 		// 增加base_query
-		XmlElement sql = new XmlElement("sql");
-		sql.addAttribute(new Attribute("id", "base_query"));
+		XmlElement where = new XmlElement("sql");
+		where.addAttribute(new Attribute("id", "base_query"));
 		
 		//在这里添加where条件
         XmlElement selectTrimElement = new XmlElement("trim"); //设置trim标签
@@ -46,9 +46,9 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
             selectNotNullElement.addElement(new TextElement(sb.toString()));
             selectTrimElement.addElement(selectNotNullElement);
 		}
-		sql.addElement(selectTrimElement);
+		where.addElement(selectTrimElement);
 		
-		parentElement.addElement(sql);
+		//parentElement.addElement(where);
 		
 		// 公用include
 		XmlElement include = new XmlElement("include");
@@ -72,7 +72,7 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		find.addElement(new TextElement("select "));
 		find.addElement(baseColumn);
 		find.addElement(selectText);
-		find.addElement(include);
+		find.addElement(selectTrimElement);
 		
 		parentElement.addElement(find);
 		
@@ -82,7 +82,7 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		for (Element ele : parentElement.getElements() ) {
 			Element curE = new TextElement("\r\n" + ele.getFormattedContent(2) );
 			list.add(curE);
-			System.out.println(curE.getFormattedContent(0));
+			//System.out.println(curE.getFormattedContent(0));
 		}
 		parentElement.getElements().clear();
 		parentElement.getElements().addAll(list);

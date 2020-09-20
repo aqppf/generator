@@ -112,7 +112,10 @@
       where id = #{id,jdbcType=BIGINT}
     </update>
   
-    <sql id="base_query">
+    <select id="selectByCondition" parameterType="com.item.gen.model.Admin" resultMap="BaseResultMap">
+      select 
+      <include refid="Base_Column_List" />
+      from admin
       <trim prefix="WHERE" prefixOverrides="AND | OR">
         <if test="id != null ">
            and id = #{id,jdbcType=BIGINT}
@@ -133,12 +136,5 @@
            and role_id = #{roleId,jdbcType=INTEGER}
         </if>
       </trim>
-    </sql>
-  
-    <select id="selectByCondition" parameterType="com.item.gen.model.Admin" resultMap="BaseResultMap">
-      select 
-      <include refid="Base_Column_List" />
-      from admin
-      <include refid="base_query" />
     </select>
 </mapper>
