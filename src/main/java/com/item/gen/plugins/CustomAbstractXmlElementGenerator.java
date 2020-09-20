@@ -82,6 +82,7 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		for (Element ele : parentElement.getElements() ) {
 			Element curE = new TextElement("\r\n" + ele.getFormattedContent(2) );
 			list.add(curE);
+			System.out.println(curE.getFormattedContent(0));
 		}
 		parentElement.getElements().clear();
 		parentElement.getElements().addAll(list);
