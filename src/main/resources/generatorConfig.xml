@@ -23,9 +23,9 @@
 		</commentGenerator>
 		
 		<!-- mysql数据库连接 -->
-		<jdbcConnection driverClass="${driverClassName}" 
-						connectionURL="${url}" 
-						userId="${username}" password="${password}"/>
+		<jdbcConnection driverClass="${jdbc.driverClassName}" 
+						connectionURL="${jdbc.url}" 
+						userId="${jdbc.username}" password="${jdbc.password}"/>
 						
 		<!-- 生成model实体类文件位置 -->
 		<javaModelGenerator targetPackage="${targetPackage}.model"
