@@ -214,8 +214,7 @@ public class MyCommentGenerator implements CommentGenerator {
         sb.setLength(0);
         
         //加入系统用户
-        sb.append(" * @author ");
-        sb.append(systemPro.getProperty("user.name"));
+        sb.append(" * ");
         method.addJavaDocLine(sb.toString().replace("\n", " "));
         sb.setLength(0);
         
@@ -250,8 +249,7 @@ public class MyCommentGenerator implements CommentGenerator {
         sb.setLength(0);
         
         //加入系统用户
-        sb.append(" * @author ");
-        sb.append(systemPro.getProperty("user.name"));
+        sb.append(" * ");
         method.addJavaDocLine(sb.toString().replace("\n", " "));
         sb.setLength(0);
         
