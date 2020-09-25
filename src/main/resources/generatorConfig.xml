@@ -13,6 +13,7 @@
 	
 		<property name="javaFileEncoding" value="UTF-8"/>
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+		<plugin type="com.item.gen.generator.ColumnPlugin"></plugin>
 		<plugin type="com.item.gen.plugins.CustomPlugin"></plugin>
 		<!--覆盖生成XML文件-->
         <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
