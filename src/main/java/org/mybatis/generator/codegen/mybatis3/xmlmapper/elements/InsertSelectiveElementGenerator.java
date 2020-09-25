@@ -42,6 +42,10 @@ public class InsertSelectiveElementGenerator extends
 
         answer.addAttribute(new Attribute(
                 "id", introspectedTable.getInsertSelectiveStatementId())); //$NON-NLS-1$
+        
+        // 返回主键
+        answer.addAttribute(new Attribute(
+                "useGeneratedKeys", "true")); //$NON-NLS-1$
 
         FullyQualifiedJavaType parameterType = introspectedTable.getRules()
                 .calculateAllFieldsClass();
