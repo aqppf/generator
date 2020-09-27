@@ -15,6 +15,8 @@
  */
 package org.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
+import java.util.List;
+
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.xml.Attribute;
@@ -43,9 +45,18 @@ public class InsertSelectiveElementGenerator extends
         answer.addAttribute(new Attribute(
                 "id", introspectedTable.getInsertSelectiveStatementId())); //$NON-NLS-1$
         
+        List<IntrospectedColumn> list = introspectedTable.getPrimaryKeyColumns();
+        
         // 返回主键
-        answer.addAttribute(new Attribute(
-                "useGeneratedKeys", "true")); //$NON-NLS-1$
+        if (list.size() == 1) {
+        
+        	answer.addAttribute(new Attribute(
+        				"useGeneratedKeys", "true")); //$NON-NLS-1$
+        	
+        	answer.addAttribute(new Attribute(
+    				"keyProperty", list.get(0).getActualColumnName())); //$NON-NLS-1$
+        	
+        }
 
         FullyQualifiedJavaType parameterType = introspectedTable.getRules()
                 .calculateAllFieldsClass();
