@@ -16,7 +16,7 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 	public void addElements(XmlElement parentElement) {
 		
 		addSelectByCondition(parentElement);
-		
+		addSelectByIdList(parentElement);
 		
 		// 格式化默认的xml文件
 		List<Element> list = new ArrayList<>();
@@ -28,6 +28,51 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		}
 		parentElement.getElements().clear();
 		parentElement.getElements().addAll(list);
+		
+	}
+	
+	/***
+	 * <foreach  item="item" collection="listTag"  open="(" separator="," close=")">
+	 * #{item}
+	 * </foreach>
+	 * @param parentElement
+	 */
+	private void addSelectByIdList(XmlElement parentElement) {
+		
+		List<IntrospectedColumn> id = introspectedTable.getPrimaryKeyColumns();
+		
+		if (id.size() != 1) {
+			return;
+		}
+		
+		XmlElement foreach = new XmlElement("foreach");
+		foreach.addAttribute(new Attribute("item", "item"));
+		foreach.addAttribute(new Attribute("collection", "list"));
+		foreach.addAttribute(new Attribute("open", "("));
+		foreach.addAttribute(new Attribute("separator", ","));
+		foreach.addAttribute(new Attribute("close", ")"));
+		foreach.addElement(new TextElement("#{item}"));
+		
+		TextElement id_in = new TextElement("where "+ id.get(0).getActualColumnName() +" in");
+		
+		// 公用include 所有的列Base_Column
+		XmlElement baseColumn = new XmlElement("include");
+		baseColumn.addAttribute(new Attribute("refid", "Base_Column_List"));
+		
+		String idName = id.get(0).getJavaProperty();
+		idName = idName.substring(0, 1).toUpperCase() + idName.substring(1);
+		
+		// 增加selectByCondition
+		XmlElement find = new XmlElement("select");
+		find.addAttribute(new Attribute("id", "selectBy"+idName+"List"));
+		find.addAttribute(new Attribute("resultMap", "BaseResultMap"));
+		find.addAttribute(new Attribute("parameterType", introspectedTable.getBaseRecordType()));
+		find.addElement(new TextElement("select "));
+		find.addElement(baseColumn);
+		find.addElement(id_in);
+		find.addElement(foreach);
+		
+		parentElement.addElement(find);
 		
 	}
 	
