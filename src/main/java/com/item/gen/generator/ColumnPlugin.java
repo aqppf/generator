@@ -31,7 +31,7 @@ public class ColumnPlugin extends PluginAdapter{
 
 		Field field = new Field();
         field.setInitializationString(""); //$NON-NLS-1$
-        field.setName("column"); //$NON-NLS-1$
+        field.setName("queryColumn"); //$NON-NLS-1$
         field.setStatic(false);
         field.setType(new FullyQualifiedJavaType("String")); //$NON-NLS-1$
         field.setVisibility(JavaVisibility.PRIVATE);
@@ -47,19 +47,19 @@ public class ColumnPlugin extends PluginAdapter{
         
         Method method = new Method();
         
-        method.setName("getColumn");
+        method.setName("getQueryColumn");
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-        method.addBodyLine("return this.column;");
+        method.addBodyLine("return this.queryColumn;");
         method.setVisibility(JavaVisibility.PUBLIC);
         
         topLevelClass.addMethod(method);
         
         method = new Method();
-        Parameter parameter = new Parameter(FullyQualifiedJavaType.getStringInstance(), "column");
+        Parameter parameter = new Parameter(FullyQualifiedJavaType.getStringInstance(), "queryColumn");
         
-        method.setName("setColumn");
+        method.setName("setQueryColumn");
         method.addParameter(parameter);
-        method.addBodyLine("this.column = column;");
+        method.addBodyLine("this.queryColumn = queryColumn;");
         method.setVisibility(JavaVisibility.PUBLIC);
         
         topLevelClass.addMethod(method);
