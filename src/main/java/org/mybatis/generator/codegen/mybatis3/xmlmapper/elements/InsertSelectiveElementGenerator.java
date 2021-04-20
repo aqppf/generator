@@ -54,7 +54,7 @@ public class InsertSelectiveElementGenerator extends
         				"useGeneratedKeys", "true")); //$NON-NLS-1$
         	
         	answer.addAttribute(new Attribute(
-    				"keyProperty", list.get(0).getActualColumnName())); //$NON-NLS-1$
+    				"keyProperty", list.get(0).getJavaProperty())); //$NON-NLS-1$
         	
         }
 

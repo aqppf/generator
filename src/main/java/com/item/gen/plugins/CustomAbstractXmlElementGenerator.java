@@ -62,13 +62,14 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
 		String idName = id.get(0).getJavaProperty();
 		idName = idName.substring(0, 1).toUpperCase() + idName.substring(1);
 		
-		// 增加selectByCondition
+		// 增加selectByIdList
 		XmlElement find = new XmlElement("select");
 		find.addAttribute(new Attribute("id", "selectBy"+idName+"List"));
 		find.addAttribute(new Attribute("resultMap", "BaseResultMap"));
 		find.addAttribute(new Attribute("parameterType", introspectedTable.getBaseRecordType()));
 		find.addElement(new TextElement("select "));
 		find.addElement(baseColumn);
+		find.addElement(new TextElement("from "+introspectedTable.getFullyQualifiedTableNameAtRuntime()));
 		find.addElement(id_in);
 		find.addElement(foreach);
 		
